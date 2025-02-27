@@ -1,5 +1,8 @@
-function addPost(post) {
-  console.log("Meine Daten");
+function addPosts(posts) {
+  localStorage.setItem("posts", JSON.stringify(posts));
+}
+function getPosts() {
+  localStorage.getItem("posts") || [];
 }
 
-export { addPost };
+export { addPosts, getPosts };
