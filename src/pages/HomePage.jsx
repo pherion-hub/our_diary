@@ -1,12 +1,76 @@
 import Card from "../components/Card";
+import { useState, useEffect } from "react";
+import { getPosts, addPosts } from "../utils/localStorage.js";
+import Modal from "../components/Modal.jsx";
+import Button from "../components/Button";
 
-const HomePage = (props) => {
+const HomePage = () => {
+  const [posts, setPosts] = useState([]);
+  const [isShowContentModal, setShowContentModal] = useState(false);
+
+  useEffect(() => {
+    const savedPosts = getPosts();
+
+    if (savedPosts) {
+      setPosts(JSON.parse(savedPosts));
+    } else {
+      localStorage.removeItem("posts");
+      setPosts([]);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (posts.length > 0) {
+      addPosts(posts);
+    } else {
+      localStorage.removeItem("posts");
+    }
+  }, [posts]);
+
+  // Function to add Post
+  const addNewPost = (newPost) => {
+    setPosts([
+      ...posts,
+      {
+        title: postTitle,
+        imageUrl: imgUrl,
+        content: postContent,
+      },
+    ]);
+  };
+
+  const handleAddPostButton = () => {
+    // setIsModalOpen(true)
+    // ;
+  };
+
+  const openNewPostModal = () => {
+    alert("Add new Post");
+  };
+
+  const showContent = (e) => {
+    console.log(e.target);
+
+    setShowContentModal(true);
+  };
+
   return (
-    <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <Card></Card>
-      <Card></Card>
-      <Card></Card>
-    </div>
+    <>
+      <h1 className="text-3xl text-center">Our cool diary</h1>
+      <Button onClick={openNewPostModal}>Add Post</Button>
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {posts.map((post, index) => {
+          <Card
+            key={index}
+            title={post.title}
+            imageUrl={post.imageUrl}
+            content={post.content}
+            onClick={showContent}
+            modalState={isShowContentModal}
+          />;
+        })}
+      </div>
+    </>
   );
 };
 
