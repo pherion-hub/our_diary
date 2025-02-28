@@ -33,9 +33,9 @@ const HomePage = () => {
     setPosts([
       ...posts,
       {
-        title: postTitle,
-        imageUrl: imgUrl,
-        content: postContent,
+        title: newPost.title,
+        imageUrl: newPost.imageUrl,
+        content: newPost.content,
       },
     ]);
   };
@@ -62,6 +62,7 @@ const HomePage = () => {
         <Modal
           isOpen={isShowContentModal}
           onClose={() => setIsAddNewPostModal(false)}
+          addNewPost={addNewPost}
         ></Modal>
       )}
       <Button onClick={openNewPostModal}>Add Post</Button>

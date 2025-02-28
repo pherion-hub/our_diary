@@ -2,7 +2,7 @@ import Button from "./Button";
 import { useState } from "react";
 import { addPosts } from "../utils/localStorage.js";
 
-const Modal = (props) => {
+const Modal = ({ addNewPost }) => {
   const [postData, setPostData] = useState({
     title: "",
     imageUrl: "",
@@ -29,12 +29,9 @@ const Modal = (props) => {
 
     setPostData(postData);
     console.log("submitting", postData);
+    addNewPost(postData);
+    e.target.reset();
   }
-
-  // Function to add toDo
-  const addToDo = (newToDo) => {
-    setTodos([...todos, { text: newToDo, done: false }]);
-  };
 
   return (
     <form action="#" method="post" onSubmit={handleSubmit}>
