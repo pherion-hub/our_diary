@@ -6,7 +6,8 @@ import Button from "../components/Button";
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
-  const [isShowContentModal, setShowContentModal] = useState(false);
+  const [isShowContentModal, setIsShowContentModal] = useState(false);
+  const [isAddNewPostModal, setIsAddNewPostModal] = useState(false);
 
   useEffect(() => {
     const savedPosts = getPosts();
@@ -45,7 +46,7 @@ const HomePage = () => {
   };
 
   const openNewPostModal = () => {
-    alert("Add new Post");
+    setIsAddNewPostModal(true);
   };
 
   const showContent = (e) => {
@@ -57,7 +58,14 @@ const HomePage = () => {
   return (
     <>
       <h1 className="text-3xl text-center">Our cool diary</h1>
+      {isAddNewPostModal && (
+        <Modal
+          isOpen={isShowContentModal}
+          onClose={() => setIsAddNewPostModal(false)}
+        ></Modal>
+      )}
       <Button onClick={openNewPostModal}>Add Post</Button>
+
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {posts.map((post, index) => {
           <Card
