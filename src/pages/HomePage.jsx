@@ -23,6 +23,7 @@ const HomePage = () => {
   // Function to add Post
   const addNewPost = (newPost) => {
     setPosts((prevPosts) => [newPost, ...prevPosts]);
+
     setIsAddNewPostModal(false);
   };
 
