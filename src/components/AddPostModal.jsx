@@ -1,20 +1,29 @@
 import { AiFillCloseSquare } from "react-icons/ai";
 import { IoIosSave } from "react-icons/io";
+import { useState } from "react";
 
-const Modal = ({ onClose, addNewPost }) => {
+const AddPostModal = ({ onClose, addNewPost, posts }) => {
+  const [isDateValid, setIsDateValid] = useState(true);
+
   function handleSubmit(e) {
     e.preventDefault();
 
     const title = e.target.title.value.trim();
     const imageUrl = e.target.imageUrl.value.trim();
     const content = e.target.content.value.trim();
+    const date = e.target.date.value.trim();
 
-    if (!title || !imageUrl || !content) {
+    if (!title || !imageUrl || !content || !date) {
       alert("Please fill in all fields!");
       return;
     }
 
-    addNewPost({ title, imageUrl, content });
+    if (posts.some((post) => post.date === date)) {
+      setIsDateValid(false);
+      return;
+    }
+
+    addNewPost({ title, imageUrl, content, date });
 
     e.target.reset();
   }
@@ -28,6 +37,14 @@ const Modal = ({ onClose, addNewPost }) => {
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-3">
+          <input type="date" name="date" />
+          {!isDateValid && (
+            <p className="text-red-500">
+              You have already written a diary entry for this date. Please
+              choose another date.
+            </p>
+          )}
+
           <input
             name="title"
             type="text"
@@ -67,4 +84,4 @@ const Modal = ({ onClose, addNewPost }) => {
   );
 };
 
-export default Modal;
+export default AddPostModal;

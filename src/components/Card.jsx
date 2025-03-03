@@ -1,7 +1,11 @@
-const Card = ({ title, imageUrl, content }) => {
+const Card = ({ title, imageUrl, onClick, date }) => {
   return (
-    <div className="flex flex-col mx-auto items-start   rounded-lg  bg-slate-200 w-[300px]">
+    <div
+      className="flex flex-col mx-auto items-start   rounded-lg  bg-slate-200 w-[300px]"
+      onClick={onClick}
+    >
       <div className="card-title p-4">
+        <div>{date}</div>
         <h2 className="text-lg md:text-xl font-bold">{title}</h2>
       </div>
 
