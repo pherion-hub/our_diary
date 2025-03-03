@@ -1,6 +1,6 @@
 const Card = ({ title, imageUrl, content }) => {
   return (
-    <div className="flex flex-col items-start  border rounded-lg shadow-lg bg-amber-100 w-[300px] md:w-[400px] lg:w-[500px]">
+    <div className="flex flex-col mx-auto items-start   rounded-lg  bg-slate-200 w-[300px]">
       <div className="card-title p-4">
         <h2 className="text-lg md:text-xl font-bold">{title}</h2>
       </div>
@@ -8,9 +8,8 @@ const Card = ({ title, imageUrl, content }) => {
       <img
         src={imageUrl}
         alt=""
-        className="h-[200px] w-full object-cover rounded-b-lg"
+        className="h-[200px] w-full rounded-b-lg object-cover"
       />
-      <p>{content}</p>
     </div>
   );
 };
