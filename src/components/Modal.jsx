@@ -1,14 +1,4 @@
-import Button from "./Button";
-import { useState } from "react";
-import { addPosts } from "../utils/localStorage.js";
-
 const Modal = ({ addNewPost }) => {
-  const [postData, setPostData] = useState({
-    title: "",
-    imageUrl: "",
-    content: "",
-  });
-
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -21,15 +11,14 @@ const Modal = ({ addNewPost }) => {
       return;
     }
 
-    const postData = {
+    const newPostData = {
       title: e.target[0].value,
       imageUrl: e.target[1].value,
       content: e.target[2].value,
     };
 
-    setPostData(postData);
-    console.log("submitting", postData);
-    addNewPost(postData);
+    console.log("submitting", newPostData);
+    addNewPost(newPostData);
     e.target.reset();
   }
 
