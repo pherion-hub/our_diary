@@ -33,16 +33,11 @@ const HomePage = () => {
     setPosts([
       ...posts,
       {
-        title: postTitle,
-        imageUrl: imgUrl,
-        content: postContent,
+        title: newPost.title,
+        imageUrl: newPost.imageUrl,
+        content: newPost.content,
       },
     ]);
-  };
-
-  const handleAddPostButton = () => {
-    // setIsModalOpen(true)
-    // ;
   };
 
   const openNewPostModal = () => {
@@ -52,19 +47,21 @@ const HomePage = () => {
   const showContent = (e) => {
     console.log(e.target);
 
-    setShowContentModal(true);
+    setIsShowContentModal(true);
   };
 
   return (
     <>
       <h1 className="text-3xl text-center">Our cool diary</h1>
+
+      <Button onClick={openNewPostModal}>Add Post</Button>
       {isAddNewPostModal && (
         <Modal
           isOpen={isShowContentModal}
           onClose={() => setIsAddNewPostModal(false)}
+          addNewPost={addNewPost}
         ></Modal>
       )}
-      <Button onClick={openNewPostModal}>Add Post</Button>
 
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {posts.map((post, index) => {
