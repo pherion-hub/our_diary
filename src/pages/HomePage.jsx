@@ -1,84 +1,59 @@
-import Card from "../components/Card";
 import { useState, useEffect } from "react";
 import { getPosts, addPosts } from "../utils/localStorage.js";
-import Modal from "../components/Modal.jsx";
 import Button from "../components/Button";
+import Modal from "../components/Modal.jsx";
+import Card from "../components/Card.jsx";
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
-  const [isShowContentModal, setIsShowContentModal] = useState(false);
+
   const [isAddNewPostModal, setIsAddNewPostModal] = useState(false);
 
   useEffect(() => {
     const savedPosts = getPosts();
-
-    if (savedPosts) {
-      setPosts(JSON.parse(savedPosts));
-    } else {
-      localStorage.removeItem("posts");
-      setPosts([]);
-    }
+    setPosts(savedPosts);
   }, []);
 
   useEffect(() => {
     if (posts.length > 0) {
       addPosts(posts);
-    } else {
-      localStorage.removeItem("posts");
     }
   }, [posts]);
 
   // Function to add Post
   const addNewPost = (newPost) => {
-    setPosts([
-      ...posts,
-      {
-        title: postTitle,
-        imageUrl: imgUrl,
-        content: postContent,
-      },
-    ]);
-  };
-
-  const handleAddPostButton = () => {
-    // setIsModalOpen(true)
-    // ;
-  };
-
-  const openNewPostModal = () => {
-    setIsAddNewPostModal(true);
-  };
-
-  const showContent = (e) => {
-    console.log(e.target);
-
-    setShowContentModal(true);
+    setPosts((prevPosts) => [newPost, ...prevPosts]);
+    setIsAddNewPostModal(false);
   };
 
   return (
-    <>
-      <h1 className="text-3xl text-center">Our cool diary</h1>
+    <div className="container mx-auto p-4">
+      <h1 className="text-3xl font-bold text-center mb-4">
+        📖 My Personal Diary
+      </h1>
+
+      <div className="flex justify-center">
+        <Button onClick={() => setIsAddNewPostModal(true)}></Button>
+      </div>
+
       {isAddNewPostModal && (
         <Modal
-          isOpen={isShowContentModal}
           onClose={() => setIsAddNewPostModal(false)}
-        ></Modal>
+          addNewPost={addNewPost}
+        />
       )}
-      <Button onClick={openNewPostModal}>Add Post</Button>
 
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {posts.map((post, index) => {
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+        {posts.map((post, index) => (
           <Card
             key={index}
             title={post.title}
             imageUrl={post.imageUrl}
             content={post.content}
-            onClick={showContent}
-            modalState={isShowContentModal}
-          />;
-        })}
+          />
+        ))}
       </div>
-    </>
+    </div>
   );
 };
 

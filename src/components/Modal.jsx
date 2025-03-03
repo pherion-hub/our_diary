@@ -1,62 +1,64 @@
-import Button from "./Button";
-import { useState } from "react";
-import { addPosts } from "../utils/localStorage.js";
-
-const Modal = (props) => {
-  const [postData, setPostData] = useState({
-    title: "",
-    imageUrl: "",
-    content: "",
-  });
-
+const Modal = ({ onClose, addNewPost }) => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (
-      e.target[0].value === "" ||
-      e.target[1].value === "" ||
-      e.target[2].value === ""
-    ) {
+    const title = e.target.title.value.trim();
+    const imageUrl = e.target.imageUrl.value.trim();
+    const content = e.target.content.value.trim();
+
+    if (!title || !imageUrl || !content) {
       alert("Please fill in all fields!");
       return;
     }
 
-    const postData = {
-      title: e.target[0].value,
-      imageUrl: e.target[1].value,
-      content: e.target[2].value,
-    };
+    addNewPost({ title, imageUrl, content });
 
-    setPostData(postData);
-    console.log("submitting", postData);
+    e.target.reset();
   }
 
-  // Function to add toDo
-  const addToDo = (newToDo) => {
-    setTodos([...todos, { text: newToDo, done: false }]);
-  };
-
   return (
-    <form action="#" method="post" onSubmit={handleSubmit}>
-      <label htmlFor="title">Title</label>
-      <input name="title" type="text" placeholder="Title" />
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-70">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+        <h2 className="text-xl font-bold mb-4">📝 New Diary Entry</h2>
 
-      <label htmlFor="imageUrl">Image URL</label>
-      <input
-        name="imageUrl"
-        type="text"
-        placeholder="https://picsum.photos/id/237/200/300"
-      />
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <input
+            name="title"
+            type="text"
+            placeholder="Title"
+            className="w-full p-2 border rounded"
+          />
+          <input
+            name="imageUrl"
+            type="text"
+            placeholder="Image URL"
+            className="w-full p-2 border rounded"
+          />
+          <textarea
+            name="content"
+            rows="4"
+            placeholder="Write your thoughts..."
+            className="w-full p-2 border rounded"
+          ></textarea>
 
-      <label htmlFor="content">Content</label>
-      <textarea
-        name="content"
-        rows="4"
-        cols="50"
-        placeholder="Some text..."
-      ></textarea>
-      <button type="submit">Save Post</button>
-    </form>
+          <div className="flex justify-end gap-2">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 bg-gray-500 text-white rounded"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 bg-blue-500 text-white rounded"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };
 
