@@ -29,9 +29,7 @@ const HomePage = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold text-center mb-4">
-        📖 My Personal Diary
-      </h1>
+      <h1 className="text-3xl font-bold text-center mb-4">My Personal Diary</h1>
 
       <div className="flex justify-center">
         <Button onClick={() => setIsAddNewPostModal(true)}></Button>
