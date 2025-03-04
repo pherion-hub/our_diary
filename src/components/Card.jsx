@@ -1,7 +1,7 @@
 const Card = ({ title, imageUrl, onClick, date }) => {
   return (
     <div
-      className="flex flex-col mx-auto items-start   rounded-lg  bg-slate-200 w-[300px]"
+      className="flex flex-col mx-auto items-start   rounded-lg  bg-slate-200 w-[300px] cursor-pointer"
       onClick={onClick}
     >
       <div className="card-title p-4">

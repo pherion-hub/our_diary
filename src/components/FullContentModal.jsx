@@ -13,7 +13,7 @@ const FullContentModal = ({ postData, onClose }) => {
           onClick={onClose}
         />
         <img src={postData.imageUrl} alt="" />
-        <p>{postData.content}</p>
+        <p className="break-words mt-4">{postData.content}</p>
       </div>
     </div>
   );

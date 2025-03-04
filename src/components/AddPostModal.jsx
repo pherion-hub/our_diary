@@ -30,13 +30,14 @@ const AddPostModal = ({ onClose, addNewPost, posts }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-70">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-96 mx-4">
+      <div className="bg-white p-6 rounded-lg shadow-lg mx-4">
         <h2 className="text-xl font-bold mb-4 flex items-center justify-center">
           {" "}
           New Diary Entry
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-3">
+          <label htmlFor="date">Date: </label>
           <input type="date" name="date" />
           {!isDateValid && (
             <p className="text-red-500">
@@ -62,18 +63,22 @@ const AddPostModal = ({ onClose, addNewPost, posts }) => {
             rows="4"
             placeholder="Write your thoughts..."
             className="w-full p-2 border rounded"
+            maxLength="500"
           ></textarea>
 
           <div className="flex justify-center gap-2">
             <button
               type="button"
               onClick={onClose}
-              className=" text-white rounded"
+              className=" text-black rounded flex items-center md:bg-slate-200 md:px-4 md:py-2"
             >
               <AiFillCloseSquare className="text-5xl text-black" />
               <span className="hidden md:inline">Cancel</span>
             </button>
-            <button type="submit" className="px-4 py-2 text-black">
+            <button
+              type="submit"
+              className=" text-black flex items-center md:bg-slate-200 md:px-4 md:py-2 rounded"
+            >
               <IoIosSave className="text-5xl text-black" />
               <span className="hidden md:inline">Save</span>
             </button>
