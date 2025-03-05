@@ -54,7 +54,7 @@ const HomePage = () => {
         {posts.map((post) => (
           <>
             <Card
-              key={Math.random()}
+              key={post.date}
               title={post.title}
               imageUrl={post.imageUrl}
               content={post.content}
