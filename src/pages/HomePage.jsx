@@ -9,7 +9,7 @@ const HomePage = () => {
   const [posts, setPosts] = useState([]);
   const [isAddNewPostModal, setIsAddNewPostModal] = useState(false);
   const [isFullContentModal, setIsFullContentModal] = useState(false);
-  const [showFullContent, setShowFullContent] = useState({});
+  const [postContent, setPostContent] = useState({});
 
   useEffect(() => {
     const savedPosts = getPosts();
@@ -25,12 +25,11 @@ const HomePage = () => {
   // Function to add Post
   const addNewPost = (newPost) => {
     setPosts((prevPosts) => [newPost, ...prevPosts]);
-
     setIsAddNewPostModal(false);
   };
 
   const showContent = (post) => {
-    setShowFullContent(post);
+    setPostContent(post);
     setIsFullContentModal(true);
   };
 
@@ -67,7 +66,7 @@ const HomePage = () => {
         ))}
         {isFullContentModal && (
           <FullContentModal
-            postData={showFullContent}
+            postData={postContent}
             onClose={() => setIsFullContentModal(false)}
           />
         )}
